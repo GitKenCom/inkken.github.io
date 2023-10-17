@@ -21,6 +21,7 @@ const config = {
   organizationName: 'GitKenCom', // Usually your GitHub org/user name.
   projectName: 'inkken', // Usually your repo name.
   deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
