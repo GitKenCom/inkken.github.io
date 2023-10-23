@@ -34,21 +34,6 @@ const config = {
     locales: ['zh-Hans'],
   },
 
-  // presets: [
-  //   [
-  //     '@docusaurus/preset-classic',
-  //     {
-  //       blog: {
-  //         blogTitle: 'Docusaurus blog!',
-  //         blogDescription: 'A Docusaurus powered blog!',
-  //         postsPerPage: 'ALL',
-  //         blogSidebarTitle: 'All posts',
-  //         blogSidebarCount: 'ALL',
-  //       },
-  //     },
-  //   ],
-  // ],
-
   presets: [
     [
       'classic',
