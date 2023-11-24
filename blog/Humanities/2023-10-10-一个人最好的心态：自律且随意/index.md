@@ -19,7 +19,9 @@ tags: ['人文']
 ![Docusaurus Plushie](./1.webp)
 
 
-<center>做事努力</center>
+<div style={{textAlign: 'center', color: '#FF8C00'}}>  
+  <h3>做事努力</h3>
+</div>
 
 没有压力的船最危险，没有负重的人生最可怕。
 
@@ -51,7 +53,9 @@ tags: ['人文']
 ![Docusaurus Plushie](./2.webp)
 
 
-<center>心态稳定</center>
+<div style={{textAlign: 'center', color: '#FF8C00'}}>  
+  <h3>心态稳定</h3>
+</div>
 
 看一个人是不是有成绩，不是看他做了什么，而是以怎样的心态去做。
 
@@ -81,7 +85,9 @@ tags: ['人文']
 ![Docusaurus Plushie](./3.webp)
 
 
-<center>不忘初心，方得始终</center>
+<div style={{textAlign: 'center', color: '#FF8C00'}}>  
+  <h3>不忘初心，方得始终</h3>
+</div>
 
 看过一句话：
 
