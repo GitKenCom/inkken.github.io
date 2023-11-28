@@ -1,7 +1,7 @@
 ---
 slug: 一个人最好的心态：自律且随意
 title: 一个人最好的心态：自律且随意
-authors: 
+authors:
 - name: 一藻读书
 tags: ['人文']
 ---
