@@ -1,0 +1,193 @@
+---
+slug: git
+title: git
+authors:
+- name: 夏一
+tags: ['开发']
+---
+
+
+```jsx
+
+cd 到指定文件夹
+git clone 链接
+git checkout -b login  创建分支
+
+git branch -D login    删除本地上的login分支(-D表示强制删除)
+
+1.  首先将某个远程主机的更新，全部取回本地：git fetch
+2.  再次查看远程分支：git branch -a 发现远程的分支已经可以看见
+3.  然后拉取远程分支到本地：git checkout -b 远程分支名 origin/远程分支
+4.  git push -u origin login    第一次将本地分支推送到远程服务器（远程服务器未创建该分支）并且命名为login
+
+git commit -m "chore: 确认计划和公司收入信息模块删除多余注释"
+
+chore
+
+cherry-pick类似于一个定制化的merge，它可以把其它分支上的commit一个个摘下来，合并到当前分支。
+
+git cherry-pick commitID
+git cherry-pick 8e849fcb69d28ec1b36d9860a960bac0ef29ae7b
+
+git cherry-pick commit1..commit100
+左开右闭的操作，也就是说，commit1不会被合并到master分支，而commit100则会
+
+git revert a19438f00c78a503b81d8be53fc5c18219fb3671 -m 1
+Git revert 来取消历史中的某一次 merge
+
+
+gh auth login
+sudo GIT_USER=UniverseExcellence yarn deploy
+https://github.com/GitKenCom/inkken.git
+
+```
+
+
+```jsx
+
+查询全局的配置  
+git config --list
+
+配置用户名和邮箱：
+git config --global  user.name "用户名"
+git config --global user.email "邮箱"
+
+基本操作：
+git status    检查未提交的文件
+git add .      添加所有更改文件到暂存区
+git status 
+git commit -m "完成了xx功能"     把暂存区的代码提交到了本地仓库中
+git branch    查看当前所处分支  当前处于login分支
+git push  将当前主分支推送到远程仓库
+git pull  拉取远程最新代码
+
+创建本地分支并提交：
+git checkout master  切换到主分支
+git pull  拉取远程最新代码
+git checkout -b login  创建分支
+git branch    查看当前所处login分支
+git push -u origin login    第一次将本地分支推送到远程服务器（远程服务器未创建该分支）并且命名为login
+
+删除本地分支和远程分支：
+删除本地分支：
+git checkout master  切换到主分支
+git branch      查看本地的分支
+git branch -D login    删除本地上的login分支(-D表示强制删除)
+git branch  查看本地分支
+删除远程分支：
+git branch -r  查看远程的分支
+git push origin -d login  删除远程上的login分支(-D表示强制删除)
+git branch -r  查看远程的分支
+
+合并分支到主分支：
+git checkout master  切换到主分支
+git branch      当前处于master分支
+git merge login   合并login分支到主分支
+git push  将当前主分支推送到远程仓库
+
+拉取远程分支到本地（远程仓库有新分支，本地没有）：
+1.首先将某个远程主机的更新，全部取回本地：git fetch
+2.再次查看远程分支：git branch -a 发现远程的分支已经可以看见
+3.然后拉取远程分支到本地：git checkout -b 远程分支名 origin/远程分支
+
+本地删除了分支，远程也想删除：
+1.使用git branch -d 分支名来删除本地分支。
+2.使用git push origin -d 分支名直接来删除远程分支。在次使用git branch -a,发现分支已经不存在了。
+或者
+1.使用git branch -d 分支名来删除本地分支。
+2.最简单的解决办法就是直接到gitlab/github进行删除.
+
+远程删除了分支，本地也想删除：
+1.git branch -a查看远程分支，红色的是本地远程远程分支记录。
+2.执行下面命令查看远程仓库分支和本地仓库的远程分支记录的对应关系：git remote show origin  
+3.会看到：refs/remotes/origin/远程仓库已经删除的分支名              stale (use 'git remote prune' to remove)
+  其中：Local refs configured for 'git push':  命令下面的分支是本地仓库的远程分支记录中仍存在的分支，但远程仓库已经不存在
+4.输入git remote prune origin来删除远程仓库已经删除过的分支
+5.验证 git branch -a
+ 此时可以看到本地远程分支记录已经和远程仓库保持一致了
+
+将主分支代码拉取到自己分支上：
+1.切换到主分支（master）
+git checkout master
+2.拉取远程仓库代码
+git pull
+3.切换回自己的分支
+git checkout 分支名称
+4.把主分支的代码合并到自己的分支上
+git merge master
+5.把代码上传到远程仓库自己分支上
+git push
+
+如果当前功能直接在主分支上开发了  可以直接创建一个分支user 
+git checkout -b user  
+git branch
+git add .
+git status
+git commit -m "完成了xx功能"
+git status
+git push -u origin user
+git branch  查看当前分支为user
+git checkout master
+git branch
+git merge user
+git push   推送到主分支
+
+
+拉取命令
+git clone + 项目地址（项目地址：在GitLab中打开项目后直接复制"Clone with SSH"）
+git pull  由于已经关联了地址，之后更新可以用git pull直接更新到最新
+提交命令
+提交新项目（未初始化Git仓库）
+git init 使用cd命令进入到工程目录下，即进入工作区，把仓库变为可管理的git仓库，得到一个.git文件夹
+git add . 将仓库下的所有内容添加到暂存区，如果只是个别内容就把“.”改为文件名
+git commit -m  "注释内容"将暂存区的内容提交到本地版本库。（参数-m很重要）
+git remote add origin + 远程仓库的地址（在GitLab上复制项目地址）把本地仓库和远程仓库关联
+如果出现 fatal:remote origin already exists
+那么输入命令：git remote rm origin
+然后再重复：git remote add origin + 远程仓库的地址
+git push -u origin master把当前分支master推送到远程仓库。参数-u的意思是，只要本地做了提交，以后就可以直接用git push代替原命令进行推送
+
+
+
+配置github token
+
+ghp_sxxxxxxxx*********************************
+
+git clone  https://<your_token>@github.com/<USERNAME>/<REPO>.git
+git clone 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@https://github.com/GitKenCom/inkken.git
+
+git remote set-url origin https://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@github.com/GitKenCom/inkken.git
+
+```
+
+![Docusaurus Plushie](./1.png)
+
+```jsx
+
+登录：
+gh auth login
+
+xiayi@xiayi-MacBookPro ~ % gh auth login
+? What account do you want to log into? GitHub.com
+? You're already logged into github.com. Do you want to re-authenticate? Yes
+? What is your preferred protocol for Git operations? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Paste an authentication token
+Tip: you can generate a Personal Access Token here https://github.com/settings/tokens
+The minimum required scopes are 'repo', 'read:org', 'workflow'.
+? Paste your authentication token: ****************************************
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as UniverseExcellence
+xiayi@xiayi-MacBookPro ~ % 
+
+
+部署
+sudo GIT_USER=UniverseExcellence yarn deploy
+
+
+```
+
+
+
+—END—

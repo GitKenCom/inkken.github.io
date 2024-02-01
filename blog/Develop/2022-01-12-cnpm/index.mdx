@@ -1,0 +1,38 @@
+---
+slug: cnpm
+title: cnpm
+authors:
+- name: 夏一
+tags: ['开发']
+---
+
+
+```jsx
+
+cnpm的使用：
+因为谷歌安装插件是从国外服务器下载，受网络影响大，可能出现异常，如果谷歌的服务器在中国就好了，所以我们乐于分享的淘宝团队干了这事来自官网：“这是一个完整npmjs.org镜像，你可以用此代替官方版本（只读），同步频率目前为10分钟一次以保证尽量与官方服务同步“。
+
+安装命令：
+npm install cnpm -g --registry=https://registry.npmmirror.com
+cnpm跟npm用法完全一致，只是在执行命令时将npm改为cnpm。
+
+常用命令：
+cnpm -v // 查看版本号
+cnpm install (cnpm i) // 安装项目相关依赖（vue/react）
+cnpm ci // 和cnpm install命令一样，是用来安装依赖的命令，但他可以比常规的 cnpm 安装快得多，也比常规安装更严格，他可以cnpm依赖安装的一致和稳定 (锁版本)
+cnpm uninstall express // 卸载 Node.js 模块
+cnpm update express // 更新模块
+cnpm search express // 搜索模块
+cnpm run dev // 启动开发环境 （vue）
+cnpm run build // 打包生产环境的代码，打包成功会生成dist文件夹（里面有index.html文件和static文件夹）；项目上线时，只需要将 dist 文件夹放到服务器就行了。（vue）
+
+cnpm start // 启动开发环境 （react）
+cnpm run build // 代码会被编译到build目录。将整个应用打包发布，自动试用webpack进行压缩与优化。
+
+
+
+```
+
+
+
+—END—

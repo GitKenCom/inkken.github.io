@@ -1,0 +1,64 @@
+---
+slug: n
+title: n
+authors:
+- name: 夏一
+tags: ['开发']
+---
+
+
+```jsx
+
+管理node多版本
+在实际项目开发中，不同的项目我们往往需要用到不同版本的node做支持，并且需要根据项目需要切换，以下就是常用的命令行。
+Mac下使用n模块去安装多个指定版本的Node.js，并使用命令随时切换。
+node中的n模块是，node专门用来管理node版本的模块，可以进行node版本的切换，下载，安装。
+官网文档：n - npm
+1、安装n
+npm install -g n
+2、查看n 模块的版本
+n --version
+3、展示当前安装的所有版本
+n list
+4、安装指定版本
+n 14.17.4
+5、安装最新版本
+n latest
+6、安装稳定版本
+n stable
+7、删除版本
+n rm 14.17.4
+8、查看帮助
+n help
+9、切换当前node版本
+输入sudo n，会弹出如下所示，
+
+xiayi@xiayi-MacBookPro inkken.github.io % sudo n
+
+    node/14.16.1
+    node/14.21.3
+    node/15.14.0
+    node/16.15.1
+    node/16.20.0
+  ο node/18.18.0
+
+Use up/down arrow keys to select a version, return key to install, d to delete, q to quit
+
+
+上下键选中要切换的node版本按确认即可
+
+切换当前node版本
+查看切换后的Node.js版本
+node -v
+10、注意问题
+问题1：使用n切换了node版本，提示切换成功，但是使用node -v查看node版本发现还是旧的版本，检查是否使用了brew管理下载过node
+解决：先停止brew管理的node：brew unlink node版本
+问题2：使用n相关命令，如果报错权限不足，需要加上sudo
+比如：sudo n stable
+
+
+```
+
+
+
+—END—

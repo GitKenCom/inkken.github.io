@@ -1,0 +1,363 @@
+---
+slug: commit
+title: commit
+authors:
+- name: 夏一
+tags: ['开发']
+---
+
+## Commit 规范
+
+本文主要介绍使用 git commit 提交代码时 message 书写规范及校验约束工具 commitlint，推荐遵循 message 规范。
+
+### git commit 提交规范
+
+#### 1.message 提交格式
+
+在执行 git add . 后，执行 git commit 时，代码有变动，并需要特殊说明更改内容时，message 信息遵循下方定义的格式。（如没有特殊更改及说明可以使用：`git commit -m <message>` 提交代码）。
+
+示例
+
+```
+git commit
+
+feat(global): 新增支持表格金额千分位显示
+
+新增以下内容：
+- 金额的小数位默认保留两位小数
+- 金额的小数位没有的话自动补2位0
+- 如果需要保留的不是2位的话自行改一下位数
+
+Closes #122
+```
+
+注：issue#122：客户反馈希望表格中的金额用千分位展示。
+
+##### message 格式
+
+```
+<type>(<scope>): <subject>
+<!-- 空行 -->
+<body>
+<!-- 空行 -->
+<footer>
+```
+
+| 字段 | 必须 | 说明 |
+| --- | --- | --- |
+| \*type | 是 | 提交类别 |
+| scope | 否 | 用于说明 commit 影响的范围，建议填写影响的功能模块 |
+| \*subject | 是 | commit 目的的简短描述，不超过 50 个字符 |
+| body | 否(建议填写) | 描述当前修改的行为详细信息或修改的目的 |
+| footer | 否 | 一般用于描述 BREAKING CHANGE 或修复的 bug 的链接，在项目开发中一般不需要填写，组件研发的工程需要填写 |
+
+###### \*type 提交类别
+
+必填，type 在 commit 的 message 中是必须存在的。type 可以有以下取值。
+
+| 值 | 说明 |
+| --- | --- |
+| feat | 新功能、新特性 |
+| fix | 修复 bug |
+| docs | 文档修改 |
+| perf | 更改代码，以提高性能（在不影响代码内部行为的前提下，对程序性能进行优化） |
+| style | 仅仅修改了空格、格式缩进、逗号等代码格式，不改变代码逻辑，不影响代码运行的变动，注意不是样式修改 |
+| refactor | 代码重构（重构，在不影响代码内部行为、功能下的代码修改） |
+| test | 测试用例新增、修改 |
+| revert | 回滚到上一个版本 |
+| build | 影响项目构建或依赖项修改 |
+| ci | 持续集成相关文件修改 |
+| workflow | 工作流相关文件修改 |
+| chore | 其他修改（不在上述类型中的修改） |
+
+###### scope 影响范围
+
+非必填（建议填写），scope 用于说明 commit 影响的范围，建议填写影响的功能模块。如果修改影响不止一个 scope，可以使用 \* 代替。
+
+###### \*subject 简短描述
+
+必填，commit 目的的简短描述，不超过 50 个字符。
+
+• 以动词开头
+
+• 第一个字母小写
+
+• 结尾不加句号
+
+###### body 详细信息
+
+非必填（建议填写），可描述当前修改的行为详细信息或修改的目的。
+
+###### footer 其他信息
+
+非必填，一般用于描述 BREAKING CHANGE，在项目开发中一般不需要填写，组件研发的工程需要填写。Footer 部分只用于两种情况
+
+###### （1）不兼容变动
+
+如果当前代码与上一个版本不兼容，则 Footer 部分以`BREAKING CHANGE`开头，后面是对变动的描述、以及变动理由和迁移方法。
+
+```
+BREAKING CHANGE: isolate scope bindings definition has changed.
+
+    To migrate the code follow the example below:
+
+    Before:
+
+    scope: {
+      attrData: 'attribute',
+    }
+
+    After:
+
+    scope: {
+      attrData: 'citcAttribute',
+    }
+
+    The removed `inject` wasn't generaly useful for directives so there should be no code usin
+```
+
+###### （2）关闭 Issue
+
+如果当前 commit 针对某个 issue，那么可以在 Footer 部分关闭这个 issue 。如果是关闭 bug，可以放上对应 bug 链接。
+
+```
+Closes #235
+```
+
+```
+Closes #123, #245, #992
+```
+
+#### 2 示例
+
+##### fix
+
+如果修复的这个 bug 只影响当前修改的文件，可不加范围。如果影响的范围比较大，要加上范围描述。
+
+例如这次 bug 修复影响到全局，可以加个 global。如果影响的是某个目录或某个功能，可以加上该目录的路径，或者对应的功能名称。
+
+// 示例 1
+
+fix(global): 修复 checkbox 不能复选的问题
+
+// 示例 2 下面圆括号里的 order 为订单模块的名称。
+
+fix(order): 修复页面顶部提示语字体过小的 bug，将订单模块下所有页面顶部提示语的默认字体大小修改为 14px
+
+// 示例 3
+
+fix: value.length -> values.length
+
+// 示例 4 在实际开发中一般会使用项目管理工具比如禅道，这个时候修复 bug，需要带上 bugID。
+
+fix: bug*5788 【订单管理*订单台账】切换默认条数后合计数显示与切换前的格式展示不一致
+
+##### feat
+
+// 示例 1 不推荐，没有提交类型，功能描述不是很清晰。内容较多时可以用一句话概括，具体内容写在 body 中。
+
+修改新增 数据统计 tab 切换
+
+//示例 2
+
+feat: 新增分公司计划收入模块
+
+##### chore
+
+chore 的中文翻译为日常事务、例行工作，顾名思义，即不在其他 commit 类型中的修改，都可以用 chore 表示。
+
+chore: 将表格中的查看详情改为详情
+
+### Git Commit 强制规范工具（commitlint+husky）
+
+#### 配置步骤汇总
+
+- 安装 commitlint 和 husky
+
+```
+npm install --save-dev @commitlint/config-conventional @commitlint/cli husky@4.3.8
+```
+
+- 根目录创建 commitlint.config.js
+
+```js
+module.exports = { extends: ['@commitlint/config-conventional'] };
+```
+
+- package.json 添加 hooks 实现 commit 时检查
+
+```
+{
+  "devDependencies": {
+  ...
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+ }
+ ...
+}
+```
+
+#### 1. commitlint
+
+commitlint 是当前使用最为广泛的 git commit 校验约束工具之一，在多人协作的背景下，推荐使用 commitlint + husky 规范 git commit -m "" 中的描述信息。commitlint 主要用途是在我们运行 `git commmit -m 'xxx'` 时，用来检查 `xxx` 是否满足固定格式。
+
+##### 安装及生成配置文件
+
+commitlint: 安装及生成配置文件
+
+```
+// 安装
+npm install -g @commitlint/cli @commitlint/config-conventional
+// 生成配置文件
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+或者
+yarn add  @commitlint/config-conventional @commitlint/cli -D
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+```
+
+config-conventional 是社区整理的常用的 Commit 规范，见如下
+
+https://www.npmjs.com/package/@commitlint/config-conventional
+
+默认采用 config-conventional：
+
+```
+module.exports = {extends: ['@commitlint/config-conventional']}
+```
+
+可自定义配置：
+
+配置规则见 https://commitlint.js.org/#/reference-configuration
+
+```
+module.exports = {
+    extends: ['@commitlint/config-conventional'],
+    rules: {
+        'type-enum': [2, 'always', [
+            "feat", "upd", "del", "fix", "refactor", "test", "perf", "docs", "style", "revert"
+        ]],
+        'subject-full-stop': [0, 'never'],
+        'subject-case': [0, 'never']
+    }
+}
+```
+
+#### 2. husky
+
+Husky can prevent bad git commit, git push and more 🐶 woof!
+
+husky 是一个增强的 git hook 工具，可以在 git hook 的各个阶段执行我们在 package.json 中配置好的 npm script。
+
+借助 husky 在每次 commit 时执行 commitlint 来检查我们输入的 message。
+
+##### 2.1 安装
+
+**注意**：指定-g 也不对所有 Project 生效！每个 Project 都需要重新安装 husky。这里需要注意一点是安装最新`husky`版本会有各种各样问题, 建议大家安装 `4.3.8`版本，可以确保没有问题。
+
+```
+npm install husky@4.3.8 -D -g
+或者
+yarn add husky@4.3.8 -D
+```
+
+##### 2.2 配置
+
+在 package.json 中配置 husky，commit-msg 指定为 commitlint （将在 git hook 的 commit-msg 阶段调用 commitlint ）。
+
+```
+"devDependencies": {
+...
+},
+"husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+ }
+```
+
+安装配置完成后，当我们在当前项目中执行 git commit -m '测试提交' 时将触发 commit-msg 事件钩子并通知 husky，从而执行 commitlint -E HUSKY_GIT_PARAMS 命令，它将读取 commitlint.config.js 配置规则并对我们刚刚提交的测试提交这串文字进行校验，若校验通过，则完成 commit 提交。若校验不通过，则在终端输出错误，commit 终止。
+
+示例
+
+```
+git commit -m "xxx"
+husky > commit-msg (node v14.18.3)
+⧗   input: xxx
+✖   subject may not be empty [subject-empty]
+✖   type may not be empty [type-empty]
+
+✖   found 2 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+husky > commit-msg hook failed (add --no-verify to bypass)
+```
+
+```
+git commit -m "feat:  测试提交"
+husky > commit-msg (node v14.18.3)
+[master 3f60f34] feat: 测试提交
+2 files changed, 8 insertions(+), 1 deletion(-)
+```
+
+### 使用 Commitizen 实现规范提交
+
+上面介绍了规范提交的格式和校验约束工具，如果在 git commit 的时候严格按照上面的规范来写，需要记住不同的类型到底是用来定义什么的，subject 怎么写，body 怎么写，footer 要不要写。心智是有负担的。下面推荐一个工具在提交的时候来提示必填字段。
+
+#### Commitizen
+
+```
+Zen-like commit messages for internet citizens.
+```
+
+Commitizen 是一个帮助撰写规范 commit messages 的提示工具。
+
+##### 1.安装和初始化
+
+```
+# 第一步在工作目录安装 cz-relax
+npm install cz-relax --save-dev
+# 第二步初始化中文配置，如果报错提示需要使用force，请在最后添加 --force
+npx cz-relax init --language zh
+```
+
+##### 2.运行 git cz 效果
+
+```
+git add .
+git cz
+
+cz-cli@4.2.5, cz-git@1.3.10
+
+? 选择你要提交的类型 : Use arrow keys or type to search
+❯ feat:     新增功能 | A new feature
+  fix:      修复缺陷 | A bug fix
+  docs:     文档更新 | Documentation only changes
+  style:    代码格式 | Changes that do not affect the meaning of the code
+  refactor: 代码重构 | A code change that neither fixes a bug nor adds a feature
+  perf:     性能提升 | A code change that improves performance
+  test:     测试相关 | Adding missing tests or correcting existing tests
+(Move up and down to reveal more choices)
+
+? 选择你要提交的类型 : feat:     新增功能 | A new feature
+? 选择一个提交范围（可选）: empty
+? 填写简短精炼的变更描述 :
+ [Infinity more chars allowed]
+ 新增公司收入台账模块
+? 填写更加详细的变更描述（可选）。使用 "|" 换行 :
+
+? 列举关联issue (可选) 例如: #31, #I3244 :
+
+###--------------------------------------------------------###
+feat: 新增公司收入台账模块
+###--------------------------------------------------------###
+
+? 是否提交或修改commit ? (Yneh)
+......
+```
+
+
+
+—END—
