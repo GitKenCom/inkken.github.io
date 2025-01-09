@@ -75,6 +75,49 @@ feat/c
 
 如果a，b分支的业务有交叉，在线上合并develop时会出现冲突，此时关闭合并请求，在本地拉取最新的develop代码。在develop创建一个新分支develop-conflict，把a，b合并到develop-conflict，在develop-conflict分支上解决冲突，解决冲突后把develop-conflict合并到develop，走正常流程。虽然test分支代码和develop是一致的，但是环境配置不一样不能讲develop下创建的分支不能直接合并到test，所以在test分支下创建test-conflict重复以上操作。后续的联调和测试的bug在a，b各自的分支修改。后续在合并到develop和test上时就不会再有冲突了。develop-conflict、test-conflict可以删除了。
 
+# 实例：
+
+# business-analysis
+
+经营管理系统
+
+# 分支管理
+
+分支说明：
+
+```
+develop：开发环境部署分支；
+test：测试环境部署分支；
+uat：预生产环境部署分支；
+main：生产环境部署分支；
+dev-x.x.0：最新基线分支(所有新需求都从此分支创建)；
+feat/xxx：xxx需求开发分支；
+fix/bug_xxx：bug_xxx修复分支；
+```
+
+举例：
+
+```
+develop
+test
+uat
+main
+dev-1.2.2
+feat/a
+feat/b
+feat/c
+```
+
+feat/a，feat/b，feat/c(以dev-1.2.2为基础创建)分别为要开发的新需求a，b，c。
+
+其中a，b两个分支需要提前上线，此时做法是把开发完成的a，b分支分别合并到develop分支部署开发环境进行接口联调。
+
+联调完毕，a，b分别合并到test分支部署测试环境由测试人员测试。测试出的bug在各自的a，b分支修复后分别合并到test分支测试，进行复测。
+
+复测完毕，feat/a，feat/b分别合并到uat分支部署预生产环境。由产品或者项目经理复验。
+
+复验完毕，feat/a，feat/b分别合并到dev-1.2.2(合并时删除原分支)，dev-1.2.2合并到main部署生产环境的流程。feat/c开发完成重复以上流程。
+
 
 
 —END—
