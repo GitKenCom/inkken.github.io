@@ -1,5 +1,5 @@
 ---
-slug: 爱情的最高境界：从琐碎中发现美
+slug: the-highest-realm-of-love-is-to-discover-beauty-in-the-trivialities
 title: 爱情的最高境界：从琐碎中发现美
 authors:
 - name: 一藻读书

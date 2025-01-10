@@ -1,5 +1,5 @@
 ---
-slug: 一个人最好的心态：自律且随意
+slug: a-persons-best-mindset-is-to-be-disciplined-and-casual
 title: 一个人最好的心态：自律且随意
 authors:
 - name: 一藻读书
