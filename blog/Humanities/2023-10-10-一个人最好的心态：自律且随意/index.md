@@ -19,7 +19,7 @@ tags: ['人文']
 ![Docusaurus Plushie](./1.webp)
 
 
-<div style={{textAlign: 'center', color: '#FF8C00'}}>  
+<div style={{textAlign: 'center', color: '#FF8C00'}}>
   <h3>做事努力</h3>
 </div>
 
@@ -128,5 +128,8 @@ tags: ['人文']
 “人生最重要的，就是不要去看远方模糊的未来，而是动手清理手边实实在在的最具体的事情。”
 
 一个人最好的状态，就是不急不躁，认真做事。把未来交给时间，把心安放当下。
+
+
+
 
 —END—

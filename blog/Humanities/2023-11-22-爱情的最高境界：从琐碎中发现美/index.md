@@ -6,7 +6,7 @@ authors:
 tags: ['人文']
 ---
 
-![Docusaurus Plushie](./0.webp)
+![Docusaurus Plushie](./0.jpg)
 
 毕淑敏说：
 
@@ -20,7 +20,7 @@ tags: ['人文']
 
 欧•亨利短篇小说《麦琪的礼物》，就讲了一对贫穷夫妻，在圣诞节互赠礼物的故事。
 
-![Docusaurus Plushie](./1.webp)
+![Docusaurus Plushie](./1.jpg)
 
 
 <div style={{textAlign: 'center', color: '#FF8C00'}}>  
@@ -63,7 +63,7 @@ tags: ['人文']
 
 为了这份牵挂，生活再难，也要在哭过后，擦干泪水，继续前行。
 
-![Docusaurus Plushie](./2.webp)
+![Docusaurus Plushie](./2.jpg)
 
 
 <div style={{textAlign: 'center', color: '#FF8C00'}}>  
@@ -102,7 +102,7 @@ tags: ['人文']
 
 生活总是要现实的、理性的、逻辑的，我们渴望平淡的幸福。然而，偶尔的一次不理性，却让这对夫妻感受到了彼此那颗真心。
 
-![Docusaurus Plushie](./3.webp)
+![Docusaurus Plushie](./3.jpg)
 
 
 <div style={{textAlign: 'center', color: '#FF8C00'}}>  
@@ -136,6 +136,9 @@ tags: ['人文']
 好的爱情，往往是在平淡生活中，守住的诗情画意。
 
 愿你在烟火人间，能够找一个一起数钱，也愿意陪你一同看烟花的人。
+
+
+
 
 —END—
 
