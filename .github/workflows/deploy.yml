@@ -6,8 +6,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # 这样GITHUB_TOKEN就有写仓库的权限了
+    permissions:  # 精细化权限控制
+      contents: write
+      pages: write
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +28,7 @@ jobs:
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用内置 Token，无需额外配置[2](@ref)
+          token: ${{ secrets.DEPLOY_TOKEN }}  # 使用手动配置的 Token
           # 若仍失败，增加权限声明
           publish_branch: gh-pages   # 显式指定目标分支
           publish_dir: ./build       # 构建输出目录
