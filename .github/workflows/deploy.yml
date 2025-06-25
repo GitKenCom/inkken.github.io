@@ -52,14 +52,10 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=4096"  # 防止内存溢出
           
       # ▶▶▶ 7. 手动Token部署配置（核心）◀◀◀
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3.9.3  # 指定稳定版本
+      - name: Deploy with Manual Token
+        uses: peaceiris/actions-gh-pages@v3.9.3
         with:
-          # 手动Token配置（与您截图中的失败任务一致）
-          token: ${{ secrets.DEPLOY_TOKEN }}  # 从仓库Secrets读取
-          
-          # 增强配置选项
-          publish_branch: gh-pages   # 目标分支
-          publish_dir: ./build       # 构建输出目录
-          keep_files: false          # 清理旧文件
-          force_orphan: true         # 强制重置分支（关键！）
+          token: ${{ secrets.DEPLOY_TOKEN }}  # ✅ 复用您已配置的Token
+          publish_branch: gh-pages
+          publish_dir: ./build
+          force_orphan: true   # 强制覆盖旧提交
