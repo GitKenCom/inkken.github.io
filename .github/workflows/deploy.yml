@@ -55,7 +55,7 @@ jobs:
       - name: Deploy with Manual Token
         uses: peaceiris/actions-gh-pages@v3.9.3
         with:
-          token: ${{ secrets.DEPLOY_TOKEN }}  # ✅ 复用您已配置的Token
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./build
           force_orphan: true   # 强制覆盖旧提交
