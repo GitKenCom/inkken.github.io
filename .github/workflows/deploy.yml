@@ -1,0 +1,29 @@
+name: Auto Deploy to GitHub Pages
+on:
+  push:
+    branches: [ main ]  # 触发分支（与您的开发分支同名）
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22  # 与您本地环境一致
+
+      - name: Install dependencies
+        run: yarn install   # 或 npm install
+
+      - name: Build site
+        run: yarn build     # 执行 Docusaurus 构建命令
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用内置 Token，无需额外配置[2](@ref)
+          publish_dir: ./build       # 构建输出目录
+          keep_files: false          # 清理旧文件
