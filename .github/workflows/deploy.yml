@@ -1,42 +1,42 @@
 name: Auto Deploy to GitHub Pages
 on:
   push:
-    branches: [ main ]
-    paths:
+    branches: [ main ]  # 触发分支
+    paths:              # 优化触发范围
       - 'docs/**'
       - 'blog/**'
       - 'src/**'
       - 'docusaurus.config.js'
-  workflow_dispatch:
+  workflow_dispatch:   # 支持手动触发
 
-# ====== 核心权限修正（修复部署失败问题）====== [1,8](@ref)
+# 核心权限配置
 permissions:
-  contents: read        # 改为只读（避免冲突）
-  pages: write          # 必须！Pages写入权限
-  id-token: write       # 必须！解决OIDC认证问题
+  contents: write      # 仓库写入权限
+  pages: write         # Pages操作权限
+  id-token: write      # 必须添加！解决token权限问题
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # ====== 环境配置（关联UI显示）====== [1](@ref)
+    # 新增环境配置（核心修复）
     environment:
       name: github-pages
-      url: https://www.inkken.com  # 自定义域名
+      url: https://www.inkken.com
     
     steps:
       # 1. 代码检出（带完整历史）
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
+          fetch-depth: 0  # 获取完整提交历史
+          
       # 2. Node.js环境配置（带缓存）
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "yarn"
-
+          node-version: "22"  # 精确匹配本地版本
+          cache: "yarn"        # 缓存依赖加速构建
+      
       # 3. 解决browserslist警告
       - name: Update browserslist
         run: npx update-browserslist-db@latest
@@ -45,29 +45,25 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         
-      # 5. 深度清理旧构建（关键修复）[6](@ref)
+      # 5. 深度清理旧构建（关键修复）
       - name: Clean previous build
         run: rm -rf build .docusaurus .cache/
         
-      # ====== 6. 项目构建（注入组织账户路径）====== [1,7](@ref)
+      # 6. 项目构建
       - name: Build site
         run: yarn build
         env:
-          NODE_OPTIONS: "--max-old-space-size=4096"
-          # 关键修改点：强制覆盖baseUrl（组织账户必须）
-          BASE_URL: '/inkken.github.io/'  
-
-      # ====== 7. 替换为官方部署插件（修复第三方插件兼容性问题）====== [1,8](@ref)
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+          # 覆盖 Docusaurus 配置中的 baseUrl（组织账户必须）
+          BASE_URL: '/inkken.github.io/'  # 修改点1：添加仓库名前缀[1,5](@ref)
+          # 显式指定组织名和仓库名（避免路径冲突）
+          ORGANIZATION_NAME: 'GitKenCom'  # 修改点2：匹配组织名[1](@ref)
+          PROJECT_NAME: 'inkken.github.io' # 修改点3：匹配仓库名[1](@ref)
+          
+      # ▶▶▶ 7. 手动Token部署配置（核心）◀◀◀
+      - name: Deploy with Manual Token
+        uses: peaceiris/actions-gh-pages@v3.9.3
         with:
-          path: ./build
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3  # 官方推荐插件
-        with:
-          # 新增CDN缓存刷新（解决内容延迟）[7](@ref)
-          enable_job_summary: true  
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./build
+          force_orphan: true   # 强制覆盖旧提交
