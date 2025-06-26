@@ -17,7 +17,11 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04  # 指定稳定环境版本
+    runs-on: ubuntu-latest
+    # 新增环境配置（核心修复）
+    environment:
+      name: github-pages
+      url: https://www.inkken.com
     
     steps:
       # 1. 代码检出（带完整历史）
