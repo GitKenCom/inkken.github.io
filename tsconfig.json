@@ -1,7 +1,10 @@
 {
   // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "moduleResolution": "Node16",
+    "module": "Node16",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"]
   }
 }
