@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkinkken=self.webpackChunkinkken||[]).push([[6887],{11383:e=>{e.exports=JSON.parse('{"label":"\u5f00\u53d1","permalink":"/tags/\u5f00\u53d1","allTagsPath":"/tags","count":8}')}}]);
