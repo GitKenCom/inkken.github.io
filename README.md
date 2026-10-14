@@ -11,10 +11,12 @@ $ yarn
 ### Local Development
 
 ```
-$ yarn start
+$ yarn
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+
+If the default port `3000` is already in use, the server automatically falls back to the next available port (`3001`, `3002`, ...).
 
 ### Build
 
