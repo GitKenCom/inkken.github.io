@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkinkken=globalThis.webpackChunkinkken||[]).push([[2677],{72446:a=>{a.exports=JSON.parse('{"label":"docusaurus","permalink":"/tags/docusaurus","allTagsPath":"/tags","count":1}')}}]);

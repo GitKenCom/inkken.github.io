@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkinkken=globalThis.webpackChunkinkken||[]).push([[4050],{13826:a=>{a.exports=JSON.parse('{"label":"facebook","permalink":"/tags/facebook","allTagsPath":"/tags","count":1}')}}]);
